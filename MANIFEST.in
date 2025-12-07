@@ -1,0 +1,17 @@
+# Manifest file for DCGAN Image Generation
+# Author: RSK World
+# Website: https://rskworld.in
+# Email: help@rskworld.in
+# Phone: +91 93305 39277
+
+include README.md
+include LICENSE
+include requirements.txt
+include SETUP.md
+include PROJECT_INFO.md
+include CONTRIBUTING.md
+include CHANGELOG.md
+recursive-include docs *.md
+recursive-include examples *.py
+recursive-include scripts *.py
+

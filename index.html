@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+    DCGAN Image Generation Project
+    Author: RSK World
+    Website: https://rskworld.in
+    Email: help@rskworld.in
+    Phone: +91 93305 39277
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DCGAN for Image Generation - RSK World</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        
+        .author-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .author-info p {
+            margin: 5px 0;
+            color: #555;
+        }
+        
+        .author-info a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .author-info a:hover {
+            text-decoration: underline;
+        }
+        
+        .content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .section h3 {
+            color: #764ba2;
+            font-size: 1.5em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-card h4 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+        
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .badge {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px 10px 10px 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .project-image {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-magic"></i> DCGAN for Image Generation</h1>
+            <p class="subtitle">Deep Convolutional Generative Adversarial Network</p>
+            <div class="author-info">
+                <p><strong>Author:</strong> RSK World</p>
+                <p><strong>Website:</strong> <a href="https://rskworld.in" target="_blank">https://rskworld.in</a></p>
+                <p><strong>Email:</strong> <a href="mailto:help@rskworld.in">help@rskworld.in</a></p>
+                <p><strong>Phone:</strong> <a href="tel:+919330539277">+91 93305 39277</a></p>
+            </div>
+        </header>
+        
+        <div class="content">
+            <div class="section">
+                <h2>About This Project</h2>
+                <p>This project implements DCGAN (Deep Convolutional GAN) for generating realistic images. The architecture uses convolutional layers in both generator and discriminator networks. It includes batch normalization, LeakyReLU activations, and proper weight initialization for stable training. Perfect for learning GAN fundamentals and image generation.</p>
+                
+                <img src="./dcgan-image-generation.png" alt="DCGAN for Image Generation" class="project-image" onerror="this.style.display='none'">
+            </div>
+            
+            <div class="section">
+                <h2>Features</h2>
+                <div class="features">
+                    <div class="feature-card">
+                        <h4>DCGAN Architecture</h4>
+                        <p>Convolutional generator and discriminator networks with proper architecture design.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Adversarial Training</h4>
+                        <p>Stable adversarial training techniques for realistic image generation.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Batch Normalization</h4>
+                        <p>Batch normalization and LeakyReLU activations for stable training.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4>Realistic Images</h4>
+                        <p>Generate high-quality, realistic images from random noise vectors.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Technologies</h2>
+                <div class="tech-badges">
+                    <span class="badge">Python</span>
+                    <span class="badge">PyTorch</span>
+                    <span class="badge">TensorFlow</span>
+                    <span class="badge">DCGAN</span>
+                    <span class="badge">Generative Adversarial Networks</span>
+                    <span class="badge">Convolutional Layers</span>
+                    <span class="badge">Image Generation</span>
+                    <span class="badge">Jupyter Notebook</span>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Quick Start</h2>
+                <h3>Installation</h3>
+                <div class="code-block">
+pip install -r requirements.txt
+                </div>
+                
+                <h3>Training</h3>
+                <p>Run the Jupyter notebook or use the Python script:</p>
+                <div class="code-block">
+# Using Jupyter Notebook
+jupyter notebook dcgan_training.ipynb
+
+# Or using Python script
+python main.py
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Project Structure</h2>
+                <div class="code-block">
+dcgan-image-generation/
+├── dcgan_model.py          # Generator and Discriminator models
+├── trainer.py              # Training logic
+├── data_loader.py          # Data loading utilities
+├── utils.py                # Utility functions
+├── config.py               # Configuration
+├── main.py                 # Main training script
+├── dcgan_training.ipynb    # Jupyter notebook
+└── requirements.txt        # Dependencies
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Get Started</h2>
+                <a href="https://github.com/rskworld/dcgan-image-generation" class="btn" target="_blank">View on GitHub</a>
+                <a href="dcgan_training.ipynb" class="btn">Open Notebook</a>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2024 RSK World. All rights reserved.</p>
+            <p>Website: <a href="https://rskworld.in" target="_blank">https://rskworld.in</a> | 
+               Email: <a href="mailto:help@rskworld.in">help@rskworld.in</a> | 
+               Phone: <a href="tel:+919330539277">+91 93305 39277</a></p>
+        </footer>
+    </div>
+</body>
+</html>
+
